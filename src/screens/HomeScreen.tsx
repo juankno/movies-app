@@ -1,10 +1,10 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ActivityIndicator } from 'react-native';
 import { RootStackParams } from '../navigation/Navigation';
-import movieDB from '../api/movieDB';
-import { MovieDBNowPlaying } from '../interfaces/movieInterface';
+import { useMovies } from '../hooks/useMovies';
+import { styles } from '../theme/appTheme';
 
 type HomeScreenProps = StackNavigationProp<RootStackParams, 'HomeScreen'>;
 
@@ -12,22 +12,19 @@ export const HomeScreen = () => {
 
   const navigation = useNavigation<HomeScreenProps>();
 
-  useEffect(() => {
-    movieDB.get<MovieDBNowPlaying>('/now_playing')
-      .then(res => {
-        console.log(res.data.results[1].title);
-      });
-  }, []);
+  const { pupularMovies, isLoading } = useMovies();
 
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator color="red" size={100} />
+      </View>
+    );
+  }
 
   return (
     <View>
       <Text>HomeScreen</Text>
-
-      <Button
-        title="Ir a detalle"
-        onPress={() => navigation.navigate('DetailScreen')}
-      />
     </View>
   );
 };

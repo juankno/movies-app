@@ -1,14 +1,18 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { View, Text, Button, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Dimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Carousel from 'react-native-snap-carousel';
+
 import { RootStackParams } from '../navigation/Navigation';
 import { useMovies } from '../hooks/useMovies';
 import { styles } from '../theme/appTheme';
 import { CardMovie } from '../components/CardMovie';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HomeScreenProps = StackNavigationProp<RootStackParams, 'HomeScreen'>;
+
+const { width } = Dimensions.get('window');
 
 export const HomeScreen = () => {
 
@@ -27,9 +31,16 @@ export const HomeScreen = () => {
 
   return (
     <View style={{ marginTop: top + 20 }}>
-      <CardMovie
-        movie={ popularMovies[3]}
-      />
+
+      <View style={{ height: 440 }}>
+
+        <Carousel
+          data={popularMovies}
+          renderItem={({ item }: any) => <CardMovie movie={item} />}
+          sliderWidth={width}
+          itemWidth={300}
+        />
+      </View>
     </View>
   );
 };

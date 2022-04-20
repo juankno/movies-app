@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { View, ActivityIndicator, Dimensions, FlatList, Text, ScrollView } from 'react-native';
+import { View, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 
@@ -9,6 +9,7 @@ import { RootStackParams } from '../navigation/Navigation';
 import { useMovies } from '../hooks/useMovies';
 import { styles } from '../theme/appTheme';
 import { CardMovie } from '../components/CardMovie';
+import { HorizontalSlider } from '../components/HorizontalSlider';
 
 type HomeScreenProps = StackNavigationProp<RootStackParams, 'HomeScreen'>;
 
@@ -40,27 +41,13 @@ export const HomeScreen = () => {
             renderItem={({ item }: any) => <CardMovie movie={item} />}
             sliderWidth={width}
             itemWidth={300}
+            inactiveSlideOpacity={0.9}
           />
         </View>
 
         {/* Peliculas Populares */}
 
-        <View style={{ backgroundColor: 'red', height: 260 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold' }}> En cine</Text>
-          <FlatList
-            data={theatersMovies}
-            renderItem={({ item }: any) => (
-              <CardMovie
-                movie={item}
-                width={140}
-                height={200}
-              />
-            )}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View>
+        <HorizontalSlider title="Más populares" movies={theatersMovies} />
 
       </View>
     </ScrollView>

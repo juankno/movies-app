@@ -7,4 +7,26 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    card: {
+        width: 300,
+        height: 420,
+    },
+    image: {
+        flex: 1,
+        borderRadius: 18,
+    },
+
+    cardImage: {
+        flex: 1,
+        borderRadius: 18,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.24,
+        shadowRadius: 7,
+        elevation: 10,
+    },
+
 });

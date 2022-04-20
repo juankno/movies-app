@@ -1,16 +1,12 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { styles } from './src/theme/appTheme';
+import { NavigationContainer } from '@react-navigation/native';
+import { Navigation } from './src/navigation/Navigation';
 
 export const App = () => {
   return (
-    <View style={styles.container}>
-      <Text style={{
-        alignItems: 'center',
-        fontSize: 30,
-        fontWeight: 'bold',
-      }}>Peliculas App
-      </Text>
-    </View>
+    <NavigationContainer>
+      <Navigation />
+    </NavigationContainer>
   );
 };

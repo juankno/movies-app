@@ -19,7 +19,7 @@ export const HomeScreen = () => {
 
   const navigation = useNavigation<HomeScreenProps>();
 
-  const { theatersMovies, popularsMovies, isLoading } = useMovies();
+  const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
 
   if (isLoading) {
@@ -37,7 +37,7 @@ export const HomeScreen = () => {
         {/* Carousel Principal */}
         <View style={{ height: 440 }}>
           <Carousel
-            data={theatersMovies}
+            data={nowPlaying}
             renderItem={({ item }: any) => <CardMovie movie={item} />}
             sliderWidth={width}
             itemWidth={300}
@@ -46,7 +46,9 @@ export const HomeScreen = () => {
         </View>
 
         {/* Peliculas populares */}
-        <HorizontalSlider title="Populares" movies={popularsMovies} />
+        <HorizontalSlider title="Popular" movies={popular} />
+        <HorizontalSlider title="Top Rated" movies={topRated} />
+        <HorizontalSlider title="Upcoming" movies={upcoming} />
 
       </View>
     </ScrollView>

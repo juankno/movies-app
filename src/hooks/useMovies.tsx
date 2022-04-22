@@ -2,22 +2,43 @@ import { useEffect, useState } from 'react';
 import movieDB from '../api/movieDB';
 import { MovieDBMoviesResponse, Movie } from '../interfaces/movieInterface';
 
+interface MoviesSate {
+    nowPlaying: Movie[];
+    popular: Movie[];
+    topRated: Movie[];
+    upcoming: Movie[];
+}
+
 export const useMovies = () => {
 
     const [isLoading, setIsLoading] = useState<Boolean>(true);
-    const [theatersMovies, setTheatersMovies] = useState<Movie[]>([]);
-    const [popularsMovies, setPopularsMovies] = useState<Movie[]>([]);
+    const [moviesState, setMoviesState] = useState<MoviesSate>({
+        nowPlaying: [],
+        topRated: [],
+        popular: [],
+        upcoming: [],
+    });
 
     const getMovies = async () => {
 
-        const nowPlaying = await movieDB.get<MovieDBMoviesResponse>('/now_playing');
-        const populars = await movieDB.get<MovieDBMoviesResponse>('/popular');
+        const nowPlayingPromise = movieDB.get<MovieDBMoviesResponse>('/now_playing');
+        const popularPromise = movieDB.get<MovieDBMoviesResponse>('/popular');
+        const topRatedPromise = movieDB.get<MovieDBMoviesResponse>('/top_rated');
+        const upcomingPromise = movieDB.get<MovieDBMoviesResponse>('/upcoming');
 
-         await movieDB.get<MovieDBMoviesResponse>('/top_rated');
-         await movieDB.get<MovieDBMoviesResponse>('/upcoming');
+        const response = await Promise.all([
+            nowPlayingPromise,
+            popularPromise,
+            topRatedPromise,
+            upcomingPromise,
+        ]);
 
-        setTheatersMovies(nowPlaying.data.results);
-        setPopularsMovies(populars.data.results);
+        setMoviesState({
+            nowPlaying: response[0].data.results,
+            popular: response[1].data.results,
+            topRated: response[2].data.results,
+            upcoming: response[3].data.results,
+        });
 
         setIsLoading(false);
     };
@@ -29,8 +50,7 @@ export const useMovies = () => {
     }, []);
 
     return {
-        theatersMovies,
-        popularsMovies,
+        ...moviesState,
         isLoading,
     };
 

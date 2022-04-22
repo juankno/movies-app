@@ -22,11 +22,11 @@ export const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2,
+            height: 10,
         },
         shadowOpacity: 0.24,
         shadowRadius: 7,
-        elevation: 10,
+        elevation: 9,
     },
 
 });

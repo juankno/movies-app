@@ -28,7 +28,9 @@ export const CardMovie = ({ movie, width = 300, height = 420 }: Props) => {
                 ...styles.card,
                 width,
                 height,
-                marginHorizontal: 8,
+                marginHorizontal: 2,
+                paddingBottom: 20,
+                paddingHorizontal: 7,
             }}>
             <View style={styles.cardImage}>
                 <Image

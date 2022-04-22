@@ -13,10 +13,14 @@ export const CardCast = ({ actor }: Props) => {
     return (
         <View style={styles.container}>
 
-            <Image
-                source={{ uri }}
-                style={{ width: 50, height: 50, borderRadius: 10 }}
-            />
+            {
+                actor.profile_path && (
+                    <Image
+                        source={{ uri }}
+                        style={{ width: 50, height: 50, borderRadius: 10 }}
+                    />
+                )
+            }
 
             <View style={styles.actorInfo}>
                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>
@@ -36,6 +40,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 10,
+        height: 50,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -43,10 +48,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.24,
         shadowRadius: 7,
-        elevation: 9,
+        elevation: 8,
+        marginLeft: 20,
+        paddingRight: 15,
     },
 
     actorInfo: {
         marginLeft: 10,
+        marginTop: 4,
     },
 });

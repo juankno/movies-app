@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import currencyFormatter from 'currency-formatter';
 import { MovieFull } from '../interfaces/movieInterface';
 import { Cast } from '../interfaces/creditsInterface';
@@ -50,7 +50,15 @@ export const MovieDetails = ({ movieFull, cast }: Props) => {
                 <Text style={{ fontSize: 23, marginTop: 10, fontWeight: 'bold', marginHorizontal: 20 }}>
                     Actores
                 </Text>
-                <CardCast actor={cast[0]} />
+
+                <FlatList
+                    data={cast}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({ item }) => <CardCast actor={item!} />}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{ marginTop: 10, height: 70 }}
+                />
             </View>
         </>
     );

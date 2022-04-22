@@ -19,7 +19,7 @@ export const HomeScreen = () => {
 
   const navigation = useNavigation<HomeScreenProps>();
 
-  const { theatersMovies, isLoading } = useMovies();
+  const { theatersMovies, popularsMovies, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
 
   if (isLoading) {
@@ -45,9 +45,8 @@ export const HomeScreen = () => {
           />
         </View>
 
-        {/* Peliculas Populares */}
-
-        <HorizontalSlider title="Más populares" movies={theatersMovies} />
+        {/* Peliculas populares */}
+        <HorizontalSlider title="Populares" movies={popularsMovies} />
 
       </View>
     </ScrollView>

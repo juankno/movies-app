@@ -1,30 +1,50 @@
 import { useState, useEffect } from 'react';
 import movieDB from '../api/movieDB';
+import { Cast, CreditsResponse } from '../interfaces/creditsInterface';
 import { MovieFull } from '../interfaces/movieInterface';
 
 interface MovieDetails {
     isLoading: boolean;
-    movieFull: MovieFull;
-    cast: any[];
+    movieFull?: MovieFull;
+    cast: Cast[];
 }
 
 export const useMovieDetails = (movieId: number) => {
 
-    const [first, setfirst] = useState<MovieDetails>();
+    const [state, setState] = useState<MovieDetails>({
+        isLoading: true,
+        movieFull: undefined,
+        cast: [],
+    });
 
     const getMovieDetails = async () => {
-      const response = await movieDB.get<MovieFull>(`/${movieId}`);
+        const moviesDetailsPromise = movieDB.get<MovieFull>(`/${movieId}`);
+        const castPromise = movieDB.get<CreditsResponse>(`/${movieId}/credits`);
 
-      console.log(response.data.overview);
+
+        const [movieDetailsResponse, castPromiseResponse] = await Promise.all([moviesDetailsPromise, castPromise]);
+
+
+        setState({
+            isLoading: false,
+            movieFull: movieDetailsResponse.data,
+            cast: castPromiseResponse.data.cast,
+        });
     };
+
 
 
 
     useEffect(() => {
 
-      getMovieDetails();
+        getMovieDetails();
 
     }, []);
+
+
+    return {
+        ...state,
+    };
 
 
 };

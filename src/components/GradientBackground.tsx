@@ -13,7 +13,7 @@ export const GradientBackground = ({ children }: Props) => {
                 colors={['#084F6A', '#75CEDB', 'white']}
                 style={{ ...StyleSheet.absoluteFillObject }}
                 start={{ x: 0.1, y: 0.1 }}
-                end={{ x: 0.7, y: 0.7 }}
+                end={{ x: 0.5, y: 0.7 }}
             />
 
             {children}

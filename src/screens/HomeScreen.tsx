@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import ImageColors from 'react-native-image-colors';
 import Carousel from 'react-native-snap-carousel';
 
 import { useMovies } from '../hooks/useMovies';
@@ -16,6 +17,16 @@ export const HomeScreen = () => {
 
   const { nowPlaying, popular, topRated, upcoming, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
+
+  const getCardColors = async (index: number) => {
+    const movie = nowPlaying[index];
+    const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+    const colors = await ImageColors.getColors(uri, {});
+
+    console.log(colors);
+
+  };
 
   if (isLoading) {
     return (
@@ -39,6 +50,7 @@ export const HomeScreen = () => {
               sliderWidth={width}
               itemWidth={300}
               inactiveSlideOpacity={0.9}
+              onSnapToItem={index => getCardColors(index)}
             />
           </View>
 

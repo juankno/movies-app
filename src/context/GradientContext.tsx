@@ -9,8 +9,8 @@ interface ImageColors {
 interface ContextProps {
     colors: ImageColors;
     prevColors: ImageColors;
-    setMainColors: (mainPrevColors: ImageColors) => void;
-    setPrevMainColors: (mainPrevColors: ImageColors) => void;
+    setMainColors: (colors: ImageColors) => void;
+    setPrevMainColors: (colors: ImageColors) => void;
 }
 
 export const GradientContext = createContext({} as ContextProps); // TODO: definir tipo

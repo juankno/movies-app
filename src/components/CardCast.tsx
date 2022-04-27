@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import Config from 'react-native-config';
 import { Cast } from '../interfaces/creditsInterface';
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 
 export const CardCast = ({ actor }: Props) => {
 
-    const uri = `https://image.tmdb.org/t/p/w500${actor.profile_path}`;
+    const uri = `${Config.API_IMG_URL}${actor.profile_path}`;
 
     return (
         <View style={styles.container}>

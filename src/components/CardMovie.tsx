@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Config from 'react-native-config';
 import { Movie } from '../interfaces/movieInterface';
 import { styles } from '../theme/appTheme';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -16,7 +17,7 @@ type NavigationProps = StackNavigationProp<RootStackParams>;
 
 export const CardMovie = ({ movie, width = 300, height = 420 }: Props) => {
 
-    const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const uri = `${Config.API_IMG_URL}${movie.poster_path}`;
 
     const navigation = useNavigation<NavigationProps>();
 

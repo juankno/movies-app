@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, ActivityIndicator, Dimensions, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
@@ -29,6 +29,14 @@ export const HomeScreen = () => {
     setMainColors({ primary, secondary });
 
   };
+
+
+  useEffect(() => {
+    if (nowPlaying.length > 0) {
+      getCardColors(0);
+    }
+  }, [nowPlaying]);
+
 
   if (isLoading) {
     return (

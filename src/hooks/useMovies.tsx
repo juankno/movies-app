@@ -44,9 +44,7 @@ export const useMovies = () => {
     };
 
     useEffect(() => {
-        setTimeout(() => {
-            getMovies();
-        }, 1000);
+        getMovies();
     }, []);
 
     return {
